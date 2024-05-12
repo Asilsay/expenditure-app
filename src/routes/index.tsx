@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Loading from '../components/Loading';
 import ScrollToTop from '../components/ScrollToTop';
 
-const Dashboard = lazy(() => import('../pages/Dashboard'));
+const Dashboard = lazy(() => import('../pages/home/Dashboard'));
 const FormTest = lazy(() => import('../pages/FormTest'));
 
 const Router = () => {
