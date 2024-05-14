@@ -45,7 +45,7 @@ const ComboReu: FC<ComboType<any>> = ({ name, control, label, languages, form })
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex flex-col w-full">
+        <FormItem className="flex flex-col w-full gap-1 pt-[6px]">
           <FormLabel className="capitalize text-white">{label}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
@@ -60,16 +60,16 @@ const ComboReu: FC<ComboType<any>> = ({ name, control, label, languages, form })
                 >
                   {field.value
                     ? languages.find((language) => language.value === field.value)?.label
-                    : 'Select language'}
+                    : `Pilih ${label}`}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-full p-0">
               <Command>
-                <CommandInput placeholder="Search language..." />
+                <CommandInput placeholder="Mencari..." />
                 <CommandList>
-                  <CommandEmpty>No language found.</CommandEmpty>
+                  <CommandEmpty>Tidak Ditemukan.</CommandEmpty>
                   <CommandGroup>
                     {languages.map((language) => (
                       <CommandItem

@@ -32,7 +32,7 @@ const DatePickReu: FC<DatePickType<any>> = ({ name, control, label }) => {
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex flex-col w-full">
+        <FormItem className="flex flex-col w-full gap-1 pt-[6px]">
           <FormLabel className="capitalize text-white">{label}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>

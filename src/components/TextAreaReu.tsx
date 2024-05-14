@@ -2,10 +2,9 @@
 import React, { FC } from 'react';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Control, FieldErrors, FieldValues } from 'react-hook-form';
-import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
 
 interface InputType<T extends FieldValues> {
-  type?: string;
   placeholder?: string;
   name: string;
   control?: Control<T>;
@@ -18,7 +17,7 @@ interface InputType<T extends FieldValues> {
   disabled?: boolean;
 }
 
-const InputReu: FC<InputType<any>> = ({ name, control, label, type, disabled }) => {
+const TextAreaReu: FC<InputType<any>> = ({ name, control, label, disabled }) => {
   return (
     <FormField
       control={control}
@@ -27,9 +26,9 @@ const InputReu: FC<InputType<any>> = ({ name, control, label, type, disabled }) 
         <FormItem className="w-full">
           <FormLabel className="capitalize text-white">{label}</FormLabel>
           <FormControl>
-            <Input
+            <Textarea
+              className="resize-none"
               disabled={disabled}
-              type={type}
               placeholder={label}
               {...field}
             />
@@ -41,4 +40,4 @@ const InputReu: FC<InputType<any>> = ({ name, control, label, type, disabled }) 
   );
 };
 
-export default InputReu;
+export default TextAreaReu;
