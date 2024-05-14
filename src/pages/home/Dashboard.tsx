@@ -5,13 +5,19 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import Layout from '@/components/Layout';
-import { PencilLine, Shell, SquareLibrary } from 'lucide-react';
+import { Loader2, PencilLine, Shell, SquareLibrary } from 'lucide-react';
 import TabsMain from '@/components/TabsMain';
 import InputReu from '@/components/InputReu';
 import { useState } from 'react';
-import { buttons } from './Data';
+import { allcode, buttons } from './Data';
+import { toast } from 'sonner';
+import ComboReu from '@/components/ComboReu';
+import DatePickReu from '@/components/DatePickReu';
 
 const schema = z.object({
+  date: z.coerce.date({
+    required_error: 'date is Required.',
+  }),
   code: z.string().min(1, { message: 'Kategori is required' }),
   cost: z.coerce.number().min(1, { message: 'Cost is required' }),
   desc: z.string().min(1, { message: 'Descirption is required' }),
@@ -50,6 +56,7 @@ export default Dashboard;
 
 function Today() {
   const [cat, setcat] = useState('');
+  const [loadSubmit, setLoadSubmit] = useState(false);
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -57,23 +64,32 @@ function Today() {
       code: '',
       cost: 0,
       desc: '',
+      date: new Date(),
     },
 
     mode: 'onSubmit',
   });
 
   const onSubmit = (val: z.infer<typeof schema>) => {
+    setLoadSubmit(true);
     const formData = new FormData();
     formData.append('code', val.code);
     formData.append('cost', val.cost.toString());
     formData.append('desc', val.desc);
+    formData.append('date', val.date.toISOString());
 
     api
-      .PostTask(formData)
-      .then(() => {})
+      .PostTask(formData, 'td')
+      .then((response) => {
+        const { message } = response.data;
+        toast(message);
+      })
       .catch((error) => {
         console.log(error.message);
         console.log(error);
+      })
+      .finally(() => {
+        setLoadSubmit(false);
       });
   };
 
@@ -90,6 +106,8 @@ function Today() {
       form.setValue('code', str);
       form.setValue('desc', '');
     }
+
+    form.setValue('date', new Date());
   };
 
   return (
@@ -126,7 +144,19 @@ function Today() {
                 control={form.control}
               />
 
-              <Button type="submit">Submit</Button>
+              {loadSubmit ? (
+                <Button disabled>
+                  <Loader2 className="animate-spin" />
+                  Loading
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  disabled={!form.formState.isValid}
+                >
+                  Submit
+                </Button>
+              )}
             </>
           )}
         </form>
@@ -134,30 +164,42 @@ function Today() {
     </div>
   );
 }
+
 function Manual() {
+  const [loadSubmit, setLoadSubmit] = useState(false);
+
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
       code: '',
       cost: 0,
       desc: '',
+      date: new Date(),
     },
 
     mode: 'onSubmit',
   });
 
   const onSubmit = (val: z.infer<typeof schema>) => {
+    setLoadSubmit(true);
     const formData = new FormData();
     formData.append('code', val.code);
     formData.append('cost', val.cost.toString());
     formData.append('desc', val.desc);
+    formData.append('date', val.date.toISOString());
 
     api
-      .PostTask(formData)
-      .then(() => {})
+      .PostTask(formData, 'td')
+      .then((response) => {
+        const { message } = response.data;
+        toast(message);
+      })
       .catch((error) => {
         console.log(error.message);
         console.log(error);
+      })
+      .finally(() => {
+        setLoadSubmit(false);
       });
   };
 
@@ -168,7 +210,14 @@ function Manual() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="gap-3  flex flex-col justify-center items-center"
         >
-          <InputReu
+          <DatePickReu
+            name="date"
+            label={'Tanggal'}
+            control={form.control}
+          />
+          <ComboReu
+            form={form}
+            languages={allcode}
             name="code"
             label="Kategori"
             control={form.control}
@@ -183,8 +232,19 @@ function Manual() {
             label="Deskripsi"
             control={form.control}
           />
-
-          <Button type="submit">Submit</Button>
+          {loadSubmit ? (
+            <Button disabled>
+              <Loader2 className="animate-spin" />
+              Loading
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              disabled={!form.formState.isValid}
+            >
+              Submit
+            </Button>
+          )}{' '}
         </form>
       </Form>
     </div>

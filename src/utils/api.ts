@@ -5,11 +5,14 @@ const instance = axios.create({
 });
 
 export default {
-  PostTask: (data?: FormData) =>
+  PostTask: (data?: FormData, params?: string) =>
     instance({
       method: 'POST',
       url: '',
       data: data,
+      params: {
+        inp: params,
+      },
       // headers: {
       //   'Access-Control-Allow-Origin': '*',
       // },

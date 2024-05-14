@@ -24,7 +24,7 @@ const InputReu: FC<InputType<any>> = ({ name, control, label, type }) => {
       name={name}
       render={({ field }) => (
         <FormItem className="w-full">
-          <FormLabel className="capitalize">{label}</FormLabel>
+          <FormLabel className="capitalize text-white">{label}</FormLabel>
           <FormControl>
             <Input
               type={type}
