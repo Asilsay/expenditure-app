@@ -22,7 +22,7 @@ const TabsMain: FC<TabsMainProps> = ({ tabs }) => {
   return (
     <Tabs
       defaultValue={activeTab}
-      className="w-[420px]"
+      className="w-[400px]"
     >
       <TabsList
         className={`grid w-full bg-slate-500 text-black `}
