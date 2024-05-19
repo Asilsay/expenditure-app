@@ -18,13 +18,15 @@ const TabsMain: FC<TabsMainProps> = ({ tabs }) => {
   const handleTabChange = (value: string) => {
     setActiveTab(value);
   };
+
   return (
     <Tabs
       defaultValue={activeTab}
-      className="w-[400px]"
+      className="w-[420px]"
     >
       <TabsList
-        className={`grid w-full bg-slate-500 text-black grid-cols-${tabs.length}`}
+        className={`grid w-full bg-slate-500 text-black `}
+        style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}
       >
         {tabs.map((tab) => (
           <TabsTrigger
@@ -32,7 +34,7 @@ const TabsMain: FC<TabsMainProps> = ({ tabs }) => {
             value={tab.value}
             onClick={() => handleTabChange(tab.value)}
           >
-            <span className="inline-flex gap-1 justify-center items-center">
+            <span className="inline-flex gap-1 justify-center items-center ">
               {' '}
               {tab.icon} {tab.label}
             </span>

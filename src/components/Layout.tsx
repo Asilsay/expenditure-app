@@ -1,4 +1,4 @@
-import { BookOpenCheck, Notebook, NotebookPen } from 'lucide-react';
+import { Notebook, NotebookPen } from 'lucide-react';
 import React, { FC, useEffect, useState } from 'react';
 import { Toaster } from 'sonner';
 
@@ -6,14 +6,11 @@ import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { DropdownMenuGroup, DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
 
 interface LayoutType {
   nav?: boolean;

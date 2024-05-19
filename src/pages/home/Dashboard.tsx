@@ -230,7 +230,7 @@ function Manual() {
             form={form}
             languages={allcode}
             name="code"
-            label="Kategori"
+            label="Keperluan"
             control={form.control}
           />
           <InputReu
