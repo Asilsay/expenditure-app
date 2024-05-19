@@ -17,4 +17,10 @@ export default {
       //   'Access-Control-Allow-Origin': '*',
       // },
     }),
+  GetTask: (params?: string) =>
+    instance({
+      method: 'GET',
+      url: '',
+      params: params,
+    }),
 };

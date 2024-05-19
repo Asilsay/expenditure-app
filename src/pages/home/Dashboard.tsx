@@ -142,6 +142,7 @@ function Today() {
               name="cost"
               label="Biaya"
               control={form.control}
+              type="currency"
               disabled={!cat}
             />
             <InputReu
@@ -235,6 +236,7 @@ function Manual() {
           <InputReu
             name="cost"
             label="Biaya"
+            type="currency"
             control={form.control}
           />
           <InputReu
@@ -283,7 +285,7 @@ function Batch() {
       .PostTask(formData, 'bch')
       .then((response) => {
         const { message, data } = response.data;
-        toast(message);
+        toast.success(message);
         console.log(data);
         form.reset();
       })

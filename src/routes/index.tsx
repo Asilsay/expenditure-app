@@ -4,6 +4,7 @@ import Loading from '../components/Loading';
 import ScrollToTop from '../components/ScrollToTop';
 
 const Dashboard = lazy(() => import('../pages/home/Dashboard'));
+const Review = lazy(() => import('../pages/review/Review'));
 const FormTest = lazy(() => import('../pages/FormTest'));
 
 const Router = () => {
@@ -12,6 +13,10 @@ const Router = () => {
       <ScrollToTop />
       <Suspense fallback={<Loading layout />}>
         <Routes>
+          <Route
+            path={'/review'}
+            element={<Review />}
+          />
           <Route
             path={'/'}
             element={<Dashboard />}

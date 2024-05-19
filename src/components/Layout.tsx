@@ -1,5 +1,19 @@
-import React, { FC } from 'react';
+import { BookOpenCheck, Notebook, NotebookPen } from 'lucide-react';
+import React, { FC, useEffect, useState } from 'react';
 import { Toaster } from 'sonner';
+
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { DropdownMenuGroup, DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
 
 interface LayoutType {
   nav?: boolean;
@@ -7,10 +21,45 @@ interface LayoutType {
 }
 
 const Layout: FC<LayoutType> = ({ children }) => {
+  const [nav, setNav] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
+
+  const goto = (path: string) => {
+    setNav(path);
+    navigate(path);
+  };
+
+  useEffect(() => {
+    setNav(pathname);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <section className="w-full min-h-screen flex flex-col bg-slate-700 items-center p-5 gap-3">
-      <div className="flex gap-2 items-center justify-center text-3xl text-white font-bold tracking-wider ">
-        {/* <BookOpenCheck size={27} /> */}
+      <div className="flex gap-2 items-center justify-center text-3xl text-white font-bold tracking-wider py-3">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate(`${nav}`)}
+            >
+              {nav === '/' ? <NotebookPen size={27} /> : <Notebook size={27} />}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-max">
+            <DropdownMenuRadioGroup
+              value={nav}
+              onValueChange={goto}
+            >
+              <DropdownMenuRadioItem value="/">write</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="/review">read</DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>{' '}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
         <p>CATAT!</p>
       </div>
 
