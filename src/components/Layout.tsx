@@ -1,4 +1,4 @@
-import { Notebook, NotebookPen } from 'lucide-react';
+import { Notebook, NotebookPen, NotebookTabs } from 'lucide-react';
 import React, { FC, useEffect, useState } from 'react';
 import { Toaster } from 'sonner';
 
@@ -43,7 +43,13 @@ const Layout: FC<LayoutType> = ({ children }) => {
               size="icon"
               onClick={() => navigate(`${nav}`)}
             >
-              {nav === '/' ? <NotebookPen size={27} /> : <Notebook size={27} />}
+              {nav === '/' ? (
+                <NotebookPen size={27} />
+              ) : nav === '/review' ? (
+                <Notebook size={27} />
+              ) : (
+                <NotebookTabs size={27} />
+              )}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-max">
@@ -53,6 +59,7 @@ const Layout: FC<LayoutType> = ({ children }) => {
             >
               <DropdownMenuRadioItem value="/">write</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="/review">read</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="/category">cat</DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>{' '}
           </DropdownMenuContent>
         </DropdownMenu>

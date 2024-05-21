@@ -5,6 +5,7 @@ import ScrollToTop from '../components/ScrollToTop';
 
 const Dashboard = lazy(() => import('../pages/home/Dashboard'));
 const Review = lazy(() => import('../pages/review/Review'));
+const Category = lazy(() => import('../pages/category/Category'));
 const FormTest = lazy(() => import('../pages/FormTest'));
 
 const Router = () => {
@@ -16,6 +17,10 @@ const Router = () => {
           <Route
             path={'/review'}
             element={<Review />}
+          />
+          <Route
+            path={'/category'}
+            element={<Category />}
           />
           <Route
             path={'/'}
