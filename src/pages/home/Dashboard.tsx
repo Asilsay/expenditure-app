@@ -22,6 +22,7 @@ const schema = z.object({
   code: z.string().min(1, { message: 'Kategori is required' }),
   cost: z.coerce.number().min(1, { message: 'Cost is required' }),
   desc: z.string().min(1, { message: 'Descirption is required' }),
+  merc: z.string(),
 });
 
 const schemaBatch = z.object({
