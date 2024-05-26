@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout';
 import TabsMain from '@/components/TabsMain';
 import api from '@/utils/api';
-import { ChevronsUp, EyeIcon, Loader2 } from 'lucide-react';
+import { ChevronsUp, Disc3, EyeIcon, Loader2 } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -12,15 +12,22 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-
 import { useEffect, useState } from 'react';
+import DialogDrawerReu from '@/components/DialogDrawerReu';
+import { Button } from '@/components/ui/button';
 
 function Review() {
   return (
     <Layout>
       <TabsMain
         tabs={[
+          {
+            label: 'Recap',
+            value: 'recap',
+            icon: <Disc3 size={16} />,
+            children: <Recap />,
+          },
+
           {
             label: 'Latest',
             value: 'latest',
@@ -40,6 +47,7 @@ interface Entry {
   KATEGORI: string;
   KEPERLUAN: string;
   DESKRIPSI: string;
+  PENJUAL: string;
   BIAYA: string;
 }
 
@@ -106,9 +114,44 @@ function Latest() {
                       day: 'numeric',
                     })}
                   </TableCell>
-                  <TableCell className="text-left  inline-flex gap-2 ">
+                  <TableCell className="text-left  inline-flex gap-2 items-center">
                     <span className=" truncate w-16 md:w-full">{entry.DESKRIPSI}</span>
 
+                    <DialogDrawerReu
+                      childrenButton={
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-4 w-4 p-0"
+                        >
+                          <EyeIcon size={16} />
+                        </Button>
+                      }
+                      title="Detail"
+                      childrenContent={
+                        <div className="px-4">
+                          <p className="font-normal">
+                            Kategori:{' '}
+                            <span className="font-semibold">{entry.KATEGORI} </span>
+                          </p>
+                          <p className="font-normal">
+                            Keperluan:{' '}
+                            <span className="font-semibold">{entry.KEPERLUAN} </span>
+                          </p>
+                          {entry.PENJUAL ? (
+                            <p className="font-normal">
+                              Toko:{' '}
+                              <span className="font-semibold">{entry.PENJUAL} </span>
+                            </p>
+                          ) : null}
+                          <p className="font-normal">
+                            Deskripsi:{' '}
+                            <span className="font-semibold">{entry.DESKRIPSI} </span>
+                          </p>{' '}
+                        </div>
+                      }
+                    />
+                    {/* 
                     <Popover>
                       <PopoverTrigger>
                         <EyeIcon size={16} />
@@ -122,12 +165,18 @@ function Latest() {
                           Keperluan:{' '}
                           <span className="font-semibold">{entry.KEPERLUAN} </span>
                         </p>
+                        {entry.PENJUAL ? (
+                          <p className="font-normal">
+                            Toko: <span className="font-semibold">{entry.PENJUAL} </span>
+                          </p>
+                        ) : null}
+
                         <p className="font-normal">
                           Deskripsi:{' '}
                           <span className="font-semibold">{entry.DESKRIPSI} </span>
                         </p>
                       </PopoverContent>
-                    </Popover>
+                    </Popover> */}
                   </TableCell>
                   <TableCell className="text-right">
                     {new Intl.NumberFormat('id-ID', {
@@ -144,4 +193,8 @@ function Latest() {
       </div>{' '}
     </div>
   );
+}
+
+function Recap() {
+  return <>REXCAP</>;
 }

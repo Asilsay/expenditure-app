@@ -71,6 +71,7 @@ function Today() {
       cost: 0,
       desc: '',
       date: new Date(),
+      merc: '',
     },
 
     mode: 'onSubmit',
@@ -82,13 +83,15 @@ function Today() {
     formData.append('code', val.code);
     formData.append('cost', val.cost.toString());
     formData.append('desc', val.desc);
+    formData.append('merc', val.merc);
     formData.append('date', val.date.toISOString());
 
     api
       .PostTask(formData, 'td')
       .then((response) => {
         const { message } = response.data;
-        toast(message);
+        toast.success(message);
+        form.reset();
       })
       .catch((error) => {
         console.log(error.message);
@@ -105,12 +108,15 @@ function Today() {
     if (str === 'l') {
       form.setValue('code', 'ben');
       form.setValue('desc', 'Pertalite');
+      form.setValue('merc', 'Pom');
     } else if (str === 'x') {
       form.setValue('code', 'ben');
       form.setValue('desc', 'Pertamax');
+      form.setValue('merc', 'Pom');
     } else {
       form.setValue('code', str);
       form.setValue('desc', '');
+      form.setValue('merc', '');
     }
 
     form.setValue('date', new Date());
@@ -144,6 +150,12 @@ function Today() {
               label="Biaya"
               control={form.control}
               type="currency"
+              disabled={!cat}
+            />
+            <InputReu
+              name="merc"
+              label="Toko"
+              control={form.control}
               disabled={!cat}
             />
             <InputReu
@@ -183,6 +195,7 @@ function Manual() {
       cost: 0,
       desc: '',
       date: new Date(),
+      merc: '',
     },
 
     mode: 'onSubmit',
@@ -198,12 +211,13 @@ function Manual() {
     formData.append('cost', val.cost.toString());
     formData.append('desc', val.desc);
     formData.append('date', toDateTime.toISOString());
+    formData.append('merc', val.merc);
 
     api
       .PostTask(formData, 'td')
       .then((response) => {
         const { message } = response.data;
-        toast(message);
+        toast.success(message);
         form.reset();
       })
       .catch((error) => {
@@ -238,6 +252,11 @@ function Manual() {
             name="cost"
             label="Biaya"
             type="currency"
+            control={form.control}
+          />
+          <InputReu
+            name="merc"
+            label="Toko"
             control={form.control}
           />
           <InputReu

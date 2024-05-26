@@ -68,7 +68,7 @@ const Layout: FC<LayoutType> = ({ children }) => {
       </div>
 
       <div className="w-full h-max flex justify-center ">{children}</div>
-      <Toaster />
+      <Toaster position="top-center" />
     </section>
   );
 };

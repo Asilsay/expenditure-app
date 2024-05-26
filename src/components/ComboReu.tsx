@@ -65,7 +65,7 @@ const ComboReu: FC<ComboType<any>> = ({ name, control, label, languages, form })
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-full p-0">
+            <PopoverContent className="w-full p-0 capitalize">
               <Command>
                 <CommandInput placeholder="Mencari..." />
                 <CommandList>
