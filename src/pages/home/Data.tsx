@@ -87,6 +87,7 @@ export const allcode = [
   { label: 'infak', value: 'inf' },
   { label: 'kado', value: 'kdo' },
   { label: 'pasokan', value: 'pas' },
+  { label: 'angpau', value: 'ang' },
   { label: 'kucing', value: 'kuc' },
   { label: 'elektronik', value: 'elk' },
   { label: 'peralatan', value: 'prl' },

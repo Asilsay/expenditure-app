@@ -304,9 +304,8 @@ function Batch() {
     api
       .PostTask(formData, 'bch')
       .then((response) => {
-        const { message, data } = response.data;
+        const { message } = response.data;
         toast.success(message);
-        console.log(data);
         form.reset();
       })
       .catch((error) => {

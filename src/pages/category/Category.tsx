@@ -49,7 +49,6 @@ function Recap() {
       .GetTask('topCat')
       .then((response) => {
         const { data } = response.data;
-        console.log(data);
         setLatestData(data);
       })
       .catch((error) => {

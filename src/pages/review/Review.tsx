@@ -50,6 +50,12 @@ interface Entry {
   PENJUAL: string;
   BIAYA: string;
 }
+interface recapProps {
+  month: number;
+  today: number;
+  week: number;
+  year: number;
+}
 
 function Latest() {
   const [latestData, setLatestData] = useState<Entry[]>([]);
@@ -62,7 +68,6 @@ function Latest() {
       .GetTask('latest')
       .then((response) => {
         const { data } = response.data;
-        console.log(response);
         setLatestData(data);
       })
       .catch((error) => {
@@ -196,5 +201,78 @@ function Latest() {
 }
 
 function Recap() {
-  return <>REXCAP</>;
+  const [recap, setRecap] = useState<recapProps>();
+  const [loadGet, setLoadGet] = useState(false);
+
+  const onGet = () => {
+    setLoadGet(true);
+
+    api
+      .GetTask('recap')
+      .then((response) => {
+        const { data } = response.data;
+        setRecap(data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        console.log(error);
+      })
+      .finally(() => {
+        setLoadGet(false);
+      });
+  };
+
+  useEffect(() => {
+    onGet();
+  }, []);
+  return (
+    <div>
+      <div className="flex flex-col w-full items-start justify-center p-2 text-white ">
+        {loadGet ? (
+          <div className="flex justify-center w-full">
+            <Loader2 className="animate-spin text-center" />
+          </div>
+        ) : (
+          <div className="flex w-full flex-col gap-2">
+            <p className="font-normal">
+              Hari ini:{' '}
+              <span className="font-semibold">
+                {new Intl.NumberFormat('id-ID', {
+                  style: 'currency',
+                  currency: 'IDR',
+                }).format(recap?.today || 0)}
+              </span>
+            </p>
+            <p className="font-normal">
+              Pekan ini:{' '}
+              <span className="font-semibold">
+                {new Intl.NumberFormat('id-ID', {
+                  style: 'currency',
+                  currency: 'IDR',
+                }).format(recap?.week || 0)}
+              </span>
+            </p>
+            <p className="font-normal">
+              Bulan ini:{' '}
+              <span className="font-semibold">
+                {new Intl.NumberFormat('id-ID', {
+                  style: 'currency',
+                  currency: 'IDR',
+                }).format(recap?.month || 0)}
+              </span>
+            </p>
+            <p className="font-normal">
+              Tahun ini:{' '}
+              <span className="font-semibold">
+                {new Intl.NumberFormat('id-ID', {
+                  style: 'currency',
+                  currency: 'IDR',
+                }).format(recap?.year || 0)}
+              </span>
+            </p>
+          </div>
+        )}
+      </div>{' '}
+    </div>
+  );
 }
