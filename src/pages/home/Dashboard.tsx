@@ -205,6 +205,9 @@ function Manual() {
     setLoadSubmit(true);
 
     const toDateTime = new Date(val.date);
+    const today = new Date();
+
+    toDateTime.setHours(today.getHours(), today.getMinutes(), today.getSeconds(), 0);
 
     const formData = new FormData();
     formData.append('code', val.code);
