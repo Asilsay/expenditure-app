@@ -1,4 +1,4 @@
-import { Notebook, NotebookPen, NotebookTabs } from 'lucide-react';
+import { ChevronDown, Notebook, NotebookPen, NotebookTabs } from 'lucide-react';
 import React, { FC, useEffect, useState } from 'react';
 import { Toaster } from 'sonner';
 
@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Separator } from './ui/separator';
 
 interface LayoutType {
   nav?: boolean;
@@ -35,7 +36,18 @@ const Layout: FC<LayoutType> = ({ children }) => {
 
   return (
     <section className="w-full min-h-screen flex flex-col bg-slate-700 items-center p-5 gap-3">
-      <div className="flex gap-2 items-center justify-center text-3xl text-white font-bold tracking-wider py-3">
+      <div className="flex w-[420px] gap-2 items-center justify-between text-3xl text-white font-bold tracking-wider px-2.5">
+        <div className="flex gap-2 items-center">
+          {nav === '/' ? (
+            <NotebookPen size={27} />
+          ) : nav === '/review' ? (
+            <Notebook size={27} />
+          ) : (
+            <NotebookTabs size={27} />
+          )}
+          <p>CATAT!</p>
+        </div>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -43,16 +55,13 @@ const Layout: FC<LayoutType> = ({ children }) => {
               size="icon"
               onClick={() => navigate(`${nav}`)}
             >
-              {nav === '/' ? (
-                <NotebookPen size={27} />
-              ) : nav === '/review' ? (
-                <Notebook size={27} />
-              ) : (
-                <NotebookTabs size={27} />
-              )}
+              <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-max">
+          <DropdownMenuContent
+            className="w-max "
+            align="end"
+          >
             <DropdownMenuRadioGroup
               value={nav}
               onValueChange={goto}
@@ -63,9 +72,8 @@ const Layout: FC<LayoutType> = ({ children }) => {
             </DropdownMenuRadioGroup>{' '}
           </DropdownMenuContent>
         </DropdownMenu>
-
-        <p>CATAT!</p>
       </div>
+      <Separator className="w-[420px]" />
 
       <div className="w-full h-max flex justify-center ">{children}</div>
       <Toaster position="top-center" />
