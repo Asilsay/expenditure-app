@@ -107,7 +107,6 @@ export const allcode = [
   { label: 'kopi', value: 'kop' },
   { label: 'utang', value: 'utg' },
   { label: 'pulsa', value: 'pul' },
-  { label: 'altera', value: 'alt' },
   { label: 'langganan', value: 'lan' },
   { label: 'game', value: 'gam' },
   { label: 'listrik', value: 'lst' },

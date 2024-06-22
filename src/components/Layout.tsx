@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Separator } from './ui/separator';
+import { ModeToggle } from './mode-toogle';
 
 interface LayoutType {
   nav?: boolean;
@@ -72,10 +73,12 @@ const Layout: FC<LayoutType> = ({ children }) => {
             </DropdownMenuRadioGroup>{' '}
           </DropdownMenuContent>
         </DropdownMenu>
+        <ModeToggle />
       </div>
       <Separator className="w-[420px]" />
 
       <div className="w-full h-max flex justify-center ">{children}</div>
+
       <Toaster position="top-center" />
     </section>
   );
