@@ -5,6 +5,7 @@ import { Toaster } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -12,7 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Separator } from './ui/separator';
-import { ModeToggle } from './mode-toogle';
+import { useTheme } from '@/utils/context/theme-provider';
 
 interface LayoutType {
   nav?: boolean;
@@ -24,6 +25,7 @@ const Layout: FC<LayoutType> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
+  const { setTheme, theme } = useTheme();
 
   const goto = (path: string) => {
     setNav(path);
@@ -36,7 +38,7 @@ const Layout: FC<LayoutType> = ({ children }) => {
   }, []);
 
   return (
-    <section className="w-full min-h-screen flex flex-col bg-slate-700 items-center p-5 gap-3">
+    <section className="w-full min-h-screen flex flex-col dark:bg-slate-950 bg-slate-200 items-center p-5 gap-3 ">
       <div className="flex w-[420px] gap-2 items-center justify-between text-3xl text-white font-bold tracking-wider px-2.5">
         <div className="flex gap-2 items-center">
           {nav === '/' ? (
@@ -71,9 +73,14 @@ const Layout: FC<LayoutType> = ({ children }) => {
               <DropdownMenuRadioItem value="/review">read</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="/category">cat</DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>{' '}
+            <DropdownMenuCheckboxItem
+              checked={theme === 'dark'}
+              onCheckedChange={(prev) => (prev ? setTheme('dark') : setTheme('light'))}
+            >
+              Darkmode
+            </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <ModeToggle />
       </div>
       <Separator className="w-[420px]" />
 
